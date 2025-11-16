@@ -7,11 +7,12 @@ vllm: false
 
 containers:
   - name: "kokoro"
-    image: "ghcr.io/tinfoilsh/kokoro-fastapi-gpu:v0.2.4"
+    image: ""
     args: [
       "--runtime", "nvidia",
       "--gpus", "all",
       "--ipc", "host",
+      "ghcr.io/remsky/kokoro-fastapi-gpu:v0.2.4",
       "--port", "8880"
     ]
 
@@ -21,3 +22,9 @@ shim:
   publish-attestation: false
   tls-challenge: dns
   control-plane: https://api.tinfoil.sh
+  paths:
+    - /health
+    - /v1/audio/speech
+    - /v1/audio/voices
+    - /v1/models
+    - /debug/system
