@@ -1,0 +1,23 @@
+shim-version: v0.2.10@sha256:f9040a48106ab06c290fd9b225d4dd53a2daad715c9107594d4310b21592039f
+cvm-version: 0.5.7
+cpus: 8
+memory: 65536
+gpus: full
+vllm: false
+
+containers:
+  - name: "kokoro"
+    image: "ghcr.io/tinfoilsh/kokoro-fastapi-gpu:v0.2.4"
+    args: [
+      "--runtime", "nvidia",
+      "--gpus", "all",
+      "--ipc", "host",
+      "--port", "8880"
+    ]
+
+shim:
+  listen-port: 443
+  upstream-port: 8880
+  publish-attestation: false
+  tls-challenge: dns
+  control-plane: https://api.tinfoil.sh
